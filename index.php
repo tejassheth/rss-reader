@@ -48,8 +48,8 @@
             if($ret!=false)
              {
                   $url=$ret;
-                echo  "<h3><sapn class=\"span9\" >Rss Feeds Name :-  ".$r-> getRssFeedName($url);
-                echo "</sapn></h3><a class=\"btn\" href=\"javascript:void(viewer.show(0))\">Slideshow</a>          <a class=\"btn\" href=\"pdf.php?url=$url\">Download PDF</a>";
+                echo  "<h3><sapn class=\"span9\" >Rss Feeds Name :-  <a href=$url >".$r-> getRssFeedName($url);
+                echo "</a></sapn></h3><a class=\"btn\" href=\"javascript:void(viewer.show(0))\">Slideshow</a>          <a class=\"btn\" href=\"pdf.php?url=$url\">Download PDF</a>";
                 $list=$r->getFeeds($url);
                 echo "<br><br><table cellspacing=\"1\" cellpadding=\"3\" class=\"tablehead\" style=\"background:#CCC;\"><thead> <tr class=\"colhead\"><th class=\"{sorter: false}\">Titles</th><th class=\"{sorter: false}\">Images</th></tr></thead><tbody>";
                 $i=1;
@@ -77,17 +77,27 @@
            <?php
             }
             else
-            {
-                echo "<h1>Not Valid Rss Feed URL</h1>";
+            {?>
+                <h1>Not Valid RSS Feeds URL</h1>
+                <form class="navbar-form pull-left" action="index.php" method="post">
+              <input class="span3" type="text" id="url1" name="URL"placeholder="Enter Rss Feeds URL">
+              <button type="submit" class="btn" id="Read1">Read</button>
+            </form>
+            <?php
             }
     }
     else
     {
-         echo "<h1>Enter Rss Feed URL</h1>";
+      ?>
+         <h1>Not Valid RSS Feeds URL</h1>
+         <form class="navbar-form pull-left" action="index.php" method="post">
+              <input class="span3" type="text" id="url1" name="URL"placeholder="Enter Rss Feeds URL">
+              <button type="submit" class="btn" id="Read1">Read</button>
+            </form>
+     <?php
     }
       ?>
-      <hr>
-
+      
       <footer>
         <p></p>
       </footer>
@@ -121,10 +131,18 @@
           condensed: true
            });
     })
+    $("#Read1").click(function(e){
+        $txtval=$("#url1").val();
+        if(!isUrl($txtval))
+        {    alert("Not A Valid URL \nEnter like :-  http://....");
+            e.preventDefault();
+        }
+        
+    });
     $("#Read").click(function(e){
         $txtval=$("#url").val();
         if(!isUrl($txtval))
-        {    alert("Not A Valid URL");
+        {    alert("Not A Valid URL\nEnter like :-  http://....");
             e.preventDefault();
         }
         
