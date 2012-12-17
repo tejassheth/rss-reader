@@ -38,9 +38,9 @@
        if(isset($_POST["URL"])|| isset($_GET["URL"]))
         {   
             if(isset($_POST["URL"]))
-               $url=$_POST["URL"];
+               $url=trim($_POST["URL"]);
             else
-              $url=$_GET["URL"];
+              $url=trim($_GET["URL"]);
 
             require_once("class.ReadRSS.php");
             $r= new ReadRSS();
