@@ -16,7 +16,8 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
-    </style>
+      .crop { width: 200px; height: 200px; overflow: hidden;}
+      </style>
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
       <link rel="icon" href="bootstrap\img\logo.ico" type="image/x-icon">
 
@@ -48,27 +49,48 @@
             if($ret!=false)
              {
                   $url=$ret;
-                echo  "<h3><sapn class=\"span9\" >Rss Feeds Name :-  <a href=$url >".$r-> getRssFeedName($url);
-                echo "</a></sapn></h3><a class=\"btn\" href=\"javascript:void(viewer.show(0))\">Slideshow</a>          <a class=\"btn\" href=\"pdf.php?url=$url\">Download PDF</a>";
+                  echo "<h3><sapn class=\"span9\" >Rss Feeds Name :-  <a href=$url>";
+                  echo $r-> getRssFeedName($url)."</a>";
+                ?>
+                
+                </sapn>
+                </h3>
+                <a class="btn" href="javascript:void(viewer.show(0))">Slideshow</a> 
+                <a class="btn" href="pdf.php?url=$url">Download PDF</a>
+                <?php
                 $list=$r->getFeeds($url);
-                echo "<br><br><table cellspacing=\"1\" cellpadding=\"3\" class=\"tablehead\" style=\"background:#CCC;\"><thead> <tr class=\"colhead\"><th class=\"{sorter: false}\">Titles</th><th class=\"{sorter: false}\">Images</th></tr></thead><tbody>";
-                $i=1;
+                ?>
+                <br><br>
+                <table cellspacing="1" cellpadding="3" class="tablehead" style="background:#CCC;">
+                  <thead> 
+                    <tr class="colhead">
+                      <th class="{sorter: false}">Titles</th>
+                      <th class=\"{sorter: false}\">Images</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                  $i=1;
+                    foreach ($list as $key ) {
+                      $v=($i%2==0)?'evenrow':'oddrow';
+                      echo   "<tr class=".$v.">";
+                      echo "<td ><a style\"font-weight:bold,font-size:150%;\" href='$key[1]' >$key[0]</a></td>";
+                      echo "<td><div class=\"crop\"><img src='$key[2]'></div> </td><tr>";
+                      $i++;
+                   }
+                 ?> 
+                  </tbody>
+                </table>
+                  
+              <script type="text/javascript">
+                var viewer = new PhotoViewer();
+              <?php
                 foreach ($list as $key ) {
-                    $v=($i%2==0)?'evenrow':'oddrow';
-                    echo   "<tr class=".$v."><td ><a style\"font-weight:bold,font-size:150%;\" href='$key[1]' >$key[0]</td><td><img src='$key[2]' height=100 width=100> </td><tr>";
-                    $i++;
-                }
-                echo "</tbody></table>";
-                 ?>   
-            <script type="text/javascript">
-              var viewer = new PhotoViewer();
-            <?php
-                        foreach ($list as $key ) {
-                          $key[0]=str_replace('"', "", $key[0]);
-                          $key[0]=str_replace("'", "", $key[0]);
-                            echo   "viewer.add('$key[2]','<b><a href= \"$key[1]\">$key[0]</a></b>');\n";
-                            }
-             ?>
+                  $key[0]=str_replace('"', "", $key[0]);
+                  $key[0]=str_replace("'", "", $key[0]);
+                  echo   "viewer.add('$key[2]','<b><a href= \"$key[1]\">$key[0]</a></b>');\n";
+                  }
+              ?>
             viewer.disableEmailLink(); 
             viewer.disablePanning();
             viewer.enableAutoPlay();
