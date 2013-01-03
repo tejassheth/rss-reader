@@ -3,25 +3,54 @@
 */
 class ReadRSS
 {
-    function validateFeed( $sFeedURL )
+    function validateFeed( $FeedURL )
     {
-       $sValidator = 'http://validator.w3.org/appc/check.cgi?url=';
-       if( $sValidationResponse = @file_get_contents($sValidator . urlencode($sFeedURL)) )
+        if (false === strpos($FeedURL, '://')) {
+        $FeedURL = 'http://' . $FeedURL;
+        }   
+        @$name = array_pop(explode('/', $FeedURL));
+       	set_time_limit(120);
+		@$con=simplexml_load_file($FeedURL);
+		if($con<>null)
+		{		
+			if(strcasecmp($con->getName(),"rss")==0)
+			{	
+				return $FeedURL;
+			}
+			else
+            {    
+				return $this::isValidateFeed($FeedURL);
+            }
+		}
+		else
+		{
+			return $this::isValidateFeed($FeedURL);
+		}
+    }
+    
+	function isValidateFeed($FeedURL)
+    {
+		set_time_limit(120);
+		$sValidator = 'http://validator.w3.org/appc/check.cgi?url=';
+		if( $sValidationResponse = @file_get_contents($sValidator . urlencode($FeedURL)) )
         {
-            if( stristr( $sValidationResponse , 'Congratulations!' ) !== false )
+		    if( stristr( $sValidationResponse , 'Congratulations!' ) !== false )
             {
+				
                 $dom= new DOMDocument();
                 @$dom->loadHTML($sValidationResponse);
                 $tag=$dom->getElementById("url");
                 if($tag->getAttribute("value")=="")
                     return false;
                 else
-                    return $tag->getAttribute("value");
+					return $tag->getAttribute("value");
            }
             else
-            {
-                return false;
-            }
+            {	
+					
+				return false;
+			}
+        
         }
         else
         {
@@ -30,6 +59,7 @@ class ReadRSS
     }
    function getRssFeedName($feed_url)
     {
+		set_time_limit(120);
         $con= new SimpleXmlElement($feed_url,null,true); 
         $name=$con->channel[0]->title;
         $cur_encoding = mb_detect_encoding($name); 
@@ -42,7 +72,7 @@ class ReadRSS
      function getFeeds($feed_url) {  
         global $ok;
         try{
-        
+        set_time_limit(120);
         $con= new SimpleXmlElement($feed_url,null,true); 
         if($con==true) 
         {

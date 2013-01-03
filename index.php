@@ -133,25 +133,34 @@
     })
     $("#Read1").click(function(e){
         $txtval=$("#url1").val();
-        if(!isUrl($txtval))
-        {    alert("Not A Valid URL \nEnter like :-  http://....");
+        if($txtval=='')
+        {
+          alert("Enter URL...")
+          e.preventDefault();
+          return false;
+        }  
+        isUrl($txtval);
+        if(($txtval.indexOf("."))==-1)
+        {    alert("Not A Valid URL");
             e.preventDefault();
         }
         
     });
     $("#Read").click(function(e){
         $txtval=$("#url").val();
-        if(!isUrl($txtval))
-        {    alert("Not A Valid URL\nEnter like :-  http://....");
+        if($txtval=='')
+        {
+          alert("Enter URL...");
+          e.preventDefault();
+          return false;
+        }  
+        isUrl($txtval);
+        if(($txtval.indexOf("."))==-1)
+        {    alert("Not A Valid URL");
             e.preventDefault();
         }
         
     });
-    function isUrl(s) {
-        var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-        return regexp.test(s);
-        }
-
     </script>
   </body>
 </html>
