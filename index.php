@@ -89,7 +89,7 @@
     else
     {
       ?>
-         <h1>Not Valid RSS Feeds URL</h1>
+         <h1>Enter RSS Feeds URL</h1>
          <form class="navbar-form pull-left" action="index.php" method="post">
               <input class="span3" type="text" id="url1" name="URL"placeholder="Enter Rss Feeds URL">
               <button type="submit" class="btn" id="Read1">Read</button>
