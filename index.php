@@ -56,8 +56,9 @@
                 </sapn>
                 </h3>
                 <a class="btn" href="javascript:void(viewer.show(0))">Slideshow</a> 
-                <a class="btn" href="pdf.php?url=$url">Download PDF</a>
+                
                 <?php
+                echo "<a class='btn' href='pdf.php?url=$url'>Download PDF</a>";
                 $list=$r->getFeeds($url);
                 ?>
                 <br><br>
@@ -74,7 +75,8 @@
                     foreach ($list as $key ) {
                       $v=($i%2==0)?'evenrow':'oddrow';
                       echo   "<tr class=".$v.">";
-                      echo "<td ><a style\"font-weight:bold,font-size:150%;\" href='$key[1]' >$key[0]</a></td>";
+                      echo "<td ><h3><a style\"font-weight:bold,font-size:150%;\" href='$key[1]' >$key[0]</a></h3>";
+                      echo substr($key[3], 0,300)."....</td>";
                       echo "<td><div class=\"crop\"><img src='$key[2]'></div> </td><tr>";
                       $i++;
                    }
@@ -130,18 +132,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bootstrap/js/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap-transition.js"></script>
-    <script src="bootstrap/js/bootstrap-alert.js"></script>
-    <script src="bootstrap/js/bootstrap-modal.js"></script>
-    <script src="bootstrap/js/bootstrap-dropdown.js"></script>
-    <script src="bootstrap/js/bootstrap-scrollspy.js"></script>
-    <script src="bootstrap/js/bootstrap-tab.js"></script>
-    <script src="bootstrap/js/bootstrap-tooltip.js"></script>
-    <script src="bootstrap/js/bootstrap-popover.js"></script>
-    <script src="bootstrap/js/bootstrap-button.js"></script>
-    <script src="bootstrap/js/bootstrap-collapse.js"></script>
-    <script src="bootstrap/js/bootstrap-carousel.js"></script>
-    <script src="bootstrap/js/bootstrap-typeahead.js"></script>
     <script src="bootstrap/js/jquery.tablecloth.js"></script>
     <script src="bootstrap/js/jquery.metadata.js"></script>
     <script src="bootstrap/js/jquery.tablesorter.min.js"></script>
@@ -161,7 +151,6 @@
           e.preventDefault();
           return false;
         }  
-        isUrl($txtval);
         if(($txtval.indexOf("."))==-1)
         {    alert("Not A Valid URL");
             e.preventDefault();
@@ -176,7 +165,6 @@
           e.preventDefault();
           return false;
         }  
-        isUrl($txtval);
         if(($txtval.indexOf("."))==-1)
         {    alert("Not A Valid URL");
             e.preventDefault();

@@ -101,10 +101,10 @@ class ReadRSS
                 $img=str_replace(strstr($img, '?h'),"",$img);
                 $img=str_replace(strstr($img, '?W'),"",$img);
                 $img=str_replace(strstr($img, '?H'),"",$img);
-                array_push($list, array($title,$link,$img));
+                $text=$this->showDOMNode($doc);
+                array_push($list, array($title,$link,$img,$text));
                 break;
             }
-
         }
         
         return $list;
@@ -118,5 +118,19 @@ class ReadRSS
     }
 
     }
-} 
+    function showDOMNode(DOMNode $domNode) {
+        $text='';
+    foreach ($domNode->childNodes as $node)
+    {
+        $text=$text.$node->nodeValue;
+        if(strlen($text)>=100)
+            break;
+        if($node->hasChildNodes()) {
+            self::showDOMNode($node);
+        }
+    }    
+    return $text;
+}
+}
+
 ?>  
