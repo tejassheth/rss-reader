@@ -8,23 +8,17 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="bootstrap/css/tablecloth.css" rel="stylesheet">
-    <link href="bootstrap/css/prettify.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="icon" href="bootstrap\img\logo.ico" type="image/x-icon">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .crop { width: 200px; height: 200px; overflow: hidden;}
-    </style>
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/tablecloth.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/prettify.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="icon" href="lib/bootstrap/img/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/slide.js"></script>
+    <script type="text/javascript" src="lib/slider/js/slide.js"></script>
   </head>
   <body>
     <?php
@@ -124,46 +118,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap/js/jquery.js"></script>
-    <script src="bootstrap/js/jquery.tablecloth.js"></script>
-    <script src="bootstrap/js/jquery.metadata.js"></script>
-    <script src="bootstrap/js/jquery.tablesorter.min.js"></script>
-    <script type="text/javascript">
-    $(function(e){
-        $("table").tablecloth({ theme: "dark",
-          striped: true,
-          sortable: true,
-          condensed: true
-           });
-    })
-    $("#Read1").click(function(e){
-        $txtval=$("#url1").val();
-        if($txtval=='') // check if textbox is empty or not
-        {
-          alert("Enter URL...")
-          e.preventDefault(); // prevent form submission
-          return false;
-        }  
-        if(($txtval.indexOf("."))==-1)
-        {    alert("Not A Valid URL");
-            e.preventDefault(); // prevent form submission
-        }
-        
-    });
-    $("#Read").click(function(e){
-        $txtval=$("#url").val();
-        if($txtval=='') // check if textbox is empty or not
-        {
-          alert("Enter URL...");
-          e.preventDefault(); // prevent form submission
-          return false;
-        }  
-        if(($txtval.indexOf("."))==-1) 
-        {    alert("Not A Valid URL");
-            e.preventDefault(); // prevent form submission
-        }
-        
-    });
-    </script>
+    <script src="lib/bootstrap/js/jquery.js"></script>
+    <script src="lib/bootstrap/js/jquery.tablecloth.js"></script>
+    <script src="lib/bootstrap/js/jquery.tablesorter.min.js"></script>
+    <script src="js/site.js"></script>
   </body>
 </html>
