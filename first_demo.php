@@ -1,5 +1,5 @@
 <html>
-    <hrad>
+    <head>
     <title>Rss Reader</title>
     <style type="text/css">
         th {
