@@ -11,7 +11,7 @@
 class ReadRSS {
         
     function validateFeed( $FeedURL ) {
-        /**
+       /**
         * This method use for checking that it is a valid RSS Feed URL or Not
         * it returns a url if it is valid otherwise it returns false
         */
@@ -26,19 +26,24 @@ class ReadRSS {
         * @access private
         * @var string 
         */
-		@$con=simplexml_load_file($FeedURL); // load rss feed xml file 
-		if($con<>null) {		// check file is load or not
-			if(strcasecmp($con->getName(),"rss")==0) {	// if load check first tag rss
-				return $FeedURL; // if it is there return url
-			}
-			else {    
-				return $this::isValidateFeed($FeedURL); // otherwise check using other function
+        $dom = new DOMDocument(); // create a DOMDocumnet object
+        @$dom->loadHTMLFile($FeedURL); // load file 
+        $items=$dom->getElementsByTagName("rss"); //get a tag rss
+        if($items->length>=1){ //check at least one rss tag
+            return $FeedURL; // return a url of rss feeds
+         }else {
+            set_time_limit(120);// set program execution time limit 120 seconds
+            @$dom->loadHTMLFile($FeedURL); // load html file in dom object
+            $items=$dom->getElementsByTagName("link"); // parse a link tag 
+            for ($i = 0; $i < $items->length; $i++){ // iterate  all link tag 
+                $linkTag=$items->item($i)->getAttribute("type"); // get a type value
+                if(strcasecmp($linkTag,"application/rss+xml")==0){ // check with 
+                    return $items->item($i)->getAttribute("href"); // return url if match 
+                    break;
+                }
             }
-		}
-		else {
-			return $this::isValidateFeed($FeedURL); // otherwise check using other function
-		}
-    }
+            return $this::isValidateFeed($FeedURL); // otherwise check using other function
+        }
     
 	function isValidateFeed($FeedURL) {
         /**
